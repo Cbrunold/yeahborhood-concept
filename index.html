@@ -183,6 +183,17 @@
   }
   .timebar span{padding:3px 8px; border-radius:99px; color:var(--ink-soft);}
   .timebar .now{background:var(--yeah); color:var(--ink);}
+  .stats{display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:4px;}
+  .stats span{border-left:3px solid var(--yeah); padding-left:9px; font-size:13.5px; color:#3A4454; line-height:1.35;}
+  .stats b{font-family:var(--display); font-size:17px; display:block;}
+  .wx{
+    display:flex; gap:6px; align-items:center; font-family:var(--display); font-weight:700;
+    font-size:10px; background:#E4EAF9; border-bottom:1px solid var(--hairline); padding:6px 10px;
+  }
+  .wx .bias{margin-left:auto; font-family:var(--mono); font-size:8.5px; color:var(--civic);}
+  .kpi{background:var(--ink); color:var(--paper); border-radius:12px; padding:10px 12px;}
+  .kpi .n{font-family:var(--display); font-weight:800; font-size:20px;}
+  .kpi .l{font-family:var(--mono); font-size:8.5px; color:#9AA6B8; letter-spacing:.08em; text-transform:uppercase;}
   .p-body{flex:1; display:flex; flex-direction:column; gap:8px; padding:10px; overflow:hidden;}
   .p-nav{
     display:flex; justify-content:space-around; padding:8px 6px; background:var(--card);
@@ -317,7 +328,13 @@
     <div class="hero-copy">
       <div class="eyebrow">Yeahborhood · UX concept · Sheet 0 · July 2026</div>
       <h1>Know what <span class="accent">locals</span> know.</h1>
-      <p class="lede">One app in your hand. It looks like a map of your block, reads like the block's own newspaper-and-ledger, and quietly pays you back for showing up. Everything in the brief folds into that sentence — this sheet does the folding.</p>
+      <p class="lede">One app in your hand. It looks like a map of your block, reads like the block's own newspaper-and-ledger, and quietly pays you back for showing up. Everything in the brief folds into that sentence — this sheet does the folding. And since sheet&nbsp;0 first shipped, the 10012 ledger went live — these numbers are real:</p>
+      <div class="stats">
+        <span><b>1,170</b> buildings ledgered</span>
+        <span><b>344</b> businesses · 243 at a door</span>
+        <span><b>195</b> doors · 2 tracked vacant</span>
+        <span><b>25</b> closed tenancies remembered</span>
+      </div>
     </div>
     <div class="signpost" aria-hidden="true">
       <div class="sign s-yellow">HappenNow! →</div>
@@ -356,7 +373,7 @@
           <span class="lname">The Knowledge</span>
         </div>
         <div class="meat">
-          <p>The Ledgers of Truth: every place, person, event and fact of one zipcode, sourced and time-stamped. Knowledge accretes instead of expiring — that's the moat no review site has.</p>
+          <p>The Ledgers of Truth: every place, person, event and fact of one zipcode, sourced and time-stamped. Knowledge accretes instead of expiring — that's the moat no review site has. <strong>Already real for 10012</strong>: 1,170 buildings with owners &amp; land use, 195 doors, 344 businesses (125 with live hours), 473 transit nodes — audited, deduped and enriched July 2026.</p>
           <span class="absorbs">absorbs → Intelligence Ledgers DB · chronology layer · Hall of Fame · free university · FACTS · "cultural mapping of civilization"</span>
         </div>
       </div>
@@ -426,6 +443,7 @@
     </div>
 
     <p class="dial-note"><strong>Examples:</strong> <em>Newcomer + 5-min walk + HappenNow + Eat</em> → "three counters locals actually queue at, one has a first-timer perk." <em>Resident + block + Roll It Back + Learn</em> → "your building in 1924, with sources."</p>
+    <p class="dial-note">And one input that isn't a dial, because nobody chooses it: <strong>conditions</strong>. Weather and time bias every ranking — rain due in 45 minutes pushes cafés up and parks down; sun reverses it; 11pm favors what's open. That's the context engine from the MVP brief: the same four dials, re-ranked by the sky.</p>
   </section>
 
   <!-- ============ C. STOLEN WELL ============ -->
@@ -545,11 +563,11 @@
             <div class="map">
               <div class="radius"></div>
               <span class="pin me" style="top:46%;left:36%">you</span>
-              <span class="pin hot" style="top:24%;left:14%">☕ Great Jones −50%</span>
-              <span class="pin" style="top:33%;left:58%">🥯 Bleecker bagels</span>
+              <span class="pin hot" style="top:24%;left:14%">☕ Il Buco +50 pts</span>
+              <span class="pin" style="top:33%;left:58%">📚 Dashwood Books</span>
               <span class="pin hot" style="top:62%;left:52%">🌳 Eliz. St Garden 6p</span>
-              <span class="pin" style="top:74%;left:18%">🎨 Lafayette opening</span>
-              <span class="pin" style="top:12%;left:60%">🎷 Blue Note @ 9</span>
+              <span class="pin" style="top:74%;left:18%">🎭 Gene Frankel 8p</span>
+              <span class="pin" style="top:12%;left:60%">🍜 Fish Cheeks ~15m</span>
             </div>
             <div class="ask">Ask your block… “where do locals lunch under $15?”</div>
           </div>
@@ -625,10 +643,89 @@
     </div>
   </section>
 
-  <!-- ============ F. BUILD ORDER ============ -->
+  <!-- ============ F. LENSES ============ -->
   <section>
     <div class="sec-head">
       <span class="sheet">Sheet F</span>
+      <h2>Same hour, different eyes: the lens dial at work</h2>
+    </div>
+    <div class="prose">
+      <p>Thursday, 12:40pm. Rain due within the hour. Here is that <em>exact moment</em> rendered for four different people across the two pilots — every business named below is a real row in the ledger. One engine, one block, four products. Scroll →</p>
+    </div>
+
+    <div class="shelf">
+
+      <!-- Workforce 10012 -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">📍 10012 · NoHo</span><span class="lens">Workforce</span></div>
+          <div class="wx">🌧 Rain in ~45 min<span class="bias">bias: indoor</span></div>
+          <div class="p-body">
+            <div class="fcard biz"><b>☕ Il Buco Alimentari — rainy-hour boost</b>Espresso before the rain lands: +50 pts, next 45 min.<div class="fmeta"><span class="live">● 3 min walk</span><span class="vt">✓ verified visits only</span></div></div>
+            <div class="fcard"><b>🥯 Lunch under $15, indoors</b>4 counters within a 5-min walk, ranked by walk time.<div class="fmeta"><span>updated 12:39</span></div></div>
+            <div class="fcard civic"><b>🌳 Elizabeth St Garden — 6pm shift</b>2 volunteer slots left · verified-hour credits.<div class="fmeta"><span>after work</span><span class="vt">✓ attendance verified</span></div></div>
+            <div class="fcard"><b>🎨 You pass it daily: 57 Great Jones</b>Basquiat's studio, 1983–88. Thirty seconds off your route.<div class="fmeta"><span>Roll It Back</span></div></div>
+          </div>
+          <div class="p-nav"><span>Map</span><b>Feed</b><span>Yeah!</span><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>Workforce · 10012</b> Rain due → indoor bias on: the café campaign surfaces, the park slips down, the garden shift waits for 6pm. The history card rides along because she walks Great Jones every day.</p>
+      </div>
+
+      <!-- Resident 11213 -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">📍 11213 · Crown Heights</span><span class="lens">Resident</span></div>
+          <div class="wx">🌧 Rain in ~45 min<span class="bias">bias: indoor</span></div>
+          <div class="p-body">
+            <div class="fcard deed"><b>🤝 Ms. Althea, Sterling Pl — groceries up 3 flights</b>Before the rain, ideally. 4-min walk.<div class="fmeta"><span class="live">● now</span><span class="vt">✓ good-deed credit</span></div></div>
+            <div class="fcard biz"><b>☕ Café Rue Dix — regulars' rain perk</b>Touba coffee +30 pts. Your 6th verified visit.<div class="fmeta"><span>6 min walk</span><span class="vt">✓ streak alive</span></div></div>
+            <div class="fcard"><b>📊 Open streets on Franklin Ave? Closes tonight</b>312 votes so far — verified residents, one vote each.<div class="fmeta"><span>your block decides</span></div></div>
+            <div class="fcard civic"><b>🎭 Tomorrow: Children's Museum free hour</b>Brooklyn Ave · RSVP now, attendance verified at the door.<div class="fmeta"><span>family</span><span class="vt">✓ sponsor-funded</span></div></div>
+          </div>
+          <div class="p-nav"><span>Map</span><b>Feed</b><span>Yeah!</span><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>Resident · 11213</b> Community outranks commerce: a neighbor's favor and the block's own vote sit above any promo. Same rain, same engine — different lens, different block, different feed.</p>
+      </div>
+
+      <!-- Business owner 10012 -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">Dashwood Books · 33 Bond</span><span class="lens">Business owner</span></div>
+          <div class="wx">🌧 Rain in ~45 min<span class="bias">foot traffic ↑ expected</span></div>
+          <div class="p-body">
+            <div class="kpi"><div class="l">this week</div><div class="n">212 verified visits</div><div class="l">38 first-timers · $0 spent on ads</div></div>
+            <div class="fcard biz"><b>⚡ Suggested: rainy-hour campaign</b>Browsers dodge rain. Fund 25 visits × 40 pts, cap $30.<div class="fmeta"><span>1-tap launch</span><span class="vt">✓ pay per verified visit</span></div></div>
+            <div class="fcard"><b>📊 Your customers speak</b>63% of verified visitors want later Thursday hours.<div class="fmeta"><span>real survey · verified customers only</span></div></div>
+            <div class="fcard civic"><b>🏚 Your block: 2 doors vacant</b>736 &amp; 738 Broadway — status tracked, history preserved.<div class="fmeta"><span>ledger intel</span></div></div>
+          </div>
+          <div class="p-nav"><span>Map</span><span>Feed</span><span>Yeah!</span><b>My Store</b><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>Business owner · 10012</b> A different product entirely: outcomes, not ads. The campaign suggestion is the context engine selling itself, and the vacancy intel comes straight from the ledger's new Status field.</p>
+      </div>
+
+      <!-- In-transit 10012 -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">📍 10012 · 2-hour window</span><span class="lens">In-transit</span></div>
+          <div class="wx">🌧 Rain in ~45 min<span class="bias">route: covered</span></div>
+          <div class="p-body">
+            <div class="fcard"><b>🎨 57 Great Jones St</b>Basquiat's studio '83–88, Warhol's building. Today: Bohemian, a hidden izakaya behind the butcher.<div class="fmeta"><span>6 min walk</span><span>Roll It Back</span></div></div>
+            <div class="fcard biz"><b>📚 Dashwood Books — 33 Bond, basement</b>Photography bookshop. Locals' pick, first-visit perk.<div class="fmeta"><span>4 min walk</span><span class="vt">✓ 212 verified visits this week</span></div></div>
+            <div class="fcard"><b>🍜 Fish Cheeks — 55 Bond</b>Thai seafood · verified wait ~15 min right now.<div class="fmeta"><span class="live">● live</span></div></div>
+            <div class="fcard civic"><b>🏅 NoHo Time Traveler — 3 of 5 markers</b>Two more historic doors before your train. Beat the rain.<div class="fmeta"><span class="vt">✓ badge on completion</span></div></div>
+          </div>
+          <div class="p-nav"><span>Map</span><b>Feed</b><span>Yeah!</span><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>In-transit · 10012</b> Two hours, no fluff: history, food, one collectible. The Basquiat-to-Bohemian card is the knowledge layer doing the growth marketing — this is the screen that gets screenshotted.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ G. BUILD ORDER ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet G</span>
       <h2>Build order: earn each layer</h2>
     </div>
     <div class="prose">
@@ -637,8 +734,8 @@
 
     <div class="steps">
       <div class="step"><div>
-        <h3>Ledger the two pilots: 10012 &amp; 11213</h3>
-        <p>NoHo and Crown Heights — one dense, history-thick Manhattan grid, one residential Brooklyn community. Opposite test conditions on purpose. Seed the Notion ledger from the database collected since 2023 instead of starting from zero; this alone powers Roll It Back and "know what locals know."</p>
+        <h3>Ledger the two pilots: 10012 ✓ &amp; 11213</h3>
+        <p><strong>Done for NoHo (July 2026):</strong> 1,170 buildings, 195 doors, 344 businesses — audited, deduped, enriched with live hours, websites and Place IDs, closures recorded as tenancy history. Crown Heights runs the same script pipeline next; its buildings import is free (same city open data).</p>
       </div></div>
       <div class="step"><div>
         <h3>Open the bulletin board</h3>
@@ -646,7 +743,7 @@
       </div></div>
       <div class="step"><div>
         <h3>Ship the Yeah with a QR, not IoT</h3>
-        <p>Three merchants, one perk each, a QR at the counter. Verified-visit perks prove the economic loop — merchant pays per outcome — with zero hardware. IoT and trusted hardware harden it later.</p>
+        <p>Three merchants, one perk each, a QR at the counter. Verified-visit perks prove the economic loop — merchant pays per outcome — with zero hardware. The MVP brief locks this in: QR check-ins become verification events, points settle off-chain, and weather-aware action cards are the daily hook. IoT and trusted hardware harden it later.</p>
       </div></div>
       <div class="step"><div>
         <h3>Fund one civic action</h3>
@@ -661,7 +758,7 @@
 
   <footer>
     <span class="tag">“A Yeahborhood never dies.”</span>
-    <span class="src">sheet 0 · distilled from docs/bio.md + founder brief · pilots: 10012 NoHo &amp; 11213 Crown Heights</span>
+    <span class="src">sheet 1 · grounded in the live YBH ledger (July 2026 audit + enrichment) · pilots: 10012 NoHo (live data) &amp; 11213 Crown Heights (greenfield)</span>
   </footer>
 
 </div>
