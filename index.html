@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yeahborhood — UX Concept</title>
+<style>
+  :root{
+    --paper:#F7F7F3;
+    --ink:#16202E;
+    --ink-soft:#66707F;
+    --yeah:#FFC81F;      /* crosswalk yellow — the one loud thing */
+    --civic:#2B59C3;     /* street-sign blue */
+    --verified:#178A5B;  /* semantic: a proof landed */
+    --hairline:#D9DAD2;
+    --card:#FFFFFF;
+    --display:"Avenir Next","Segoe UI Variable Display","Segoe UI",-apple-system,"Helvetica Neue",sans-serif;
+    --body:Charter,Georgia,"Iowan Old Style","Times New Roman",serif;
+    --mono:"Cascadia Code",Consolas,"SF Mono","Roboto Mono",monospace;
+  }
+  html{background:var(--paper);}
+  body{
+    font-family:var(--body); color:var(--ink);
+    line-height:1.6; font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 24px 96px;}
+  .prose{max-width:680px;}
+  p{margin:0 0 1em;}
+  a{color:var(--civic);}
+
+  /* ---------- type roles ---------- */
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+  h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0;}
+  h2{font-size:30px; font-weight:800; letter-spacing:-.01em; line-height:1.15;}
+  h3{font-size:17px; font-weight:700;}
+  .lede{font-size:19px; color:#2A3547;}
+
+  /* ---------- hero: street-sign stack ---------- */
+  header.hero{
+    padding:72px 0 24px;
+    display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start;
+    justify-content:space-between;
+  }
+  .hero-copy{max-width:600px; display:flex; flex-direction:column; gap:20px;}
+  h1{
+    font-size:clamp(40px,6vw,64px); font-weight:800;
+    line-height:1.02; letter-spacing:-.02em;
+  }
+  h1 .accent{
+    background:var(--yeah); padding:0 .14em; box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .signpost{
+    display:flex; flex-direction:column; gap:0; margin-top:8px;
+    filter:drop-shadow(0 2px 0 rgba(22,32,46,.18));
+  }
+  .signpost .pole{width:8px; background:var(--ink); align-self:flex-start; margin-left:26px;}
+  .sign{
+    font-family:var(--display); font-weight:800; font-size:14px;
+    letter-spacing:.12em; text-transform:uppercase;
+    padding:9px 18px 8px; border:3px solid var(--ink);
+    white-space:nowrap; width:max-content;
+  }
+  .sign + .sign{margin-top:-3px;}
+  .sign.s-yellow{background:var(--yeah); color:var(--ink);}
+  .sign.s-blue{background:var(--civic); color:#fff; border-color:var(--civic); margin-left:34px;}
+  .sign.s-ink{background:var(--ink); color:var(--paper); margin-left:14px;}
+  .sign.s-paper{background:var(--card); color:var(--ink); margin-left:52px;}
+
+  /* ---------- sections ---------- */
+  section{margin-top:88px;}
+  .sec-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:12px;
+    border-top:3px solid var(--ink); padding-top:14px;
+  }
+  .sheet{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+    color:var(--paper); background:var(--ink); padding:3px 8px;
+    text-transform:uppercase; white-space:nowrap;
+  }
+  .sec-head h2{flex:1;}
+
+  /* ---------- layer stack ---------- */
+  .stack{display:flex; flex-direction:column; gap:14px; margin:28px 0 8px;}
+  .layer{
+    background:var(--card); border:1.5px solid var(--ink);
+    display:grid; grid-template-columns:150px 1fr; overflow:hidden;
+  }
+  .layer .tab{
+    padding:18px; display:flex; flex-direction:column; gap:6px; justify-content:center;
+    border-right:1.5px solid var(--ink);
+  }
+  .layer .tab .lnum{font-family:var(--mono); font-size:12px; letter-spacing:.12em;}
+  .layer .tab .lname{font-family:var(--display); font-weight:800; font-size:19px; line-height:1.1;}
+  .layer .meat{padding:18px 22px; font-size:15.5px; line-height:1.55;}
+  .meat p{margin:0 0 6px;}
+  .meat .absorbs{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); line-height:1.7;}
+  .layer.l-exp .tab{background:var(--yeah);}
+  .layer.l-knw .tab{background:#E4EAF9;}
+  .layer.l-pro .tab{background:var(--ink); color:var(--paper);}
+  .stack-note{font-size:15px; color:var(--ink-soft); font-style:italic; max-width:680px;}
+
+  .parked{
+    margin-top:28px; border:1.5px dashed var(--ink-soft); padding:18px 22px;
+    background:transparent; max-width:900px;
+  }
+  .parked h3{margin-bottom:6px;}
+  .parked p{font-size:15px; color:#3A4454; margin:0;}
+  .parked .lot{font-family:var(--mono); font-size:13px; line-height:2; color:var(--ink-soft); display:block; margin-top:8px;}
+
+  /* ---------- dials ---------- */
+  .dials{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:28px;}
+  .dial{background:var(--card); border:1.5px solid var(--ink); padding:18px 20px 20px; display:flex; flex-direction:column; gap:10px;}
+  .dial .d-q{font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);}
+  .dial h3{font-size:22px; font-weight:800;}
+  .dial p{font-size:14.5px; margin:0; line-height:1.5;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:8px;}
+  .chip{
+    font-family:var(--display); font-weight:600; font-size:12px;
+    border:1.2px solid var(--ink); padding:3px 9px; border-radius:99px; background:var(--paper);
+  }
+  .chip.on{background:var(--ink); color:var(--paper);}
+  .dial-note{margin-top:22px; font-size:18px; max-width:680px;}
+
+  /* ---------- stolen well table ---------- */
+  .tbl-scroll{overflow-x:auto; margin-top:24px; border:1.5px solid var(--ink); background:var(--card);}
+  table{border-collapse:collapse; width:100%; min-width:760px; font-size:15px;}
+  th{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase;
+    text-align:left; padding:12px 18px; background:var(--ink); color:var(--paper); font-weight:500;
+  }
+  td{padding:14px 18px; vertical-align:top; border-top:1px solid var(--hairline); line-height:1.5;}
+  td.src{font-family:var(--display); font-weight:700; white-space:nowrap;}
+  td.twist{background:#FFF8DF;}
+  .v{color:var(--verified); font-weight:700;}
+
+  /* ---------- day timeline ---------- */
+  .day{margin-top:28px; display:flex; flex-direction:column; max-width:820px;}
+  .beat{
+    display:grid; grid-template-columns:76px 1fr; gap:20px; padding:18px 0;
+    border-top:1px solid var(--hairline);
+  }
+  .beat:first-child{border-top:none;}
+  .beat .t{font-family:var(--mono); font-size:14px; padding-top:3px; font-variant-numeric:tabular-nums;}
+  .beat h3{margin-bottom:4px;}
+  .beat p{font-size:15.5px; margin:0 0 6px; max-width:640px;}
+  .under{
+    font-family:var(--mono); font-size:12.5px; color:var(--verified);
+    display:flex; gap:8px; align-items:baseline;
+  }
+  .under::before{content:"⛓ protocol:"; color:var(--ink-soft);}
+
+  /* ---------- phones ---------- */
+  .shelf{
+    display:flex; gap:26px; overflow-x:auto; padding:30px 4px 18px;
+    scroll-snap-type:x proximity;
+  }
+  .slot{scroll-snap-align:start; display:flex; flex-direction:column; gap:12px; flex:0 0 auto;}
+  .caption{max-width:270px; font-size:14px; line-height:1.5; color:#3A4454;}
+  .caption b{font-family:var(--display); display:block; font-size:15px; color:var(--ink);}
+  .phone{
+    width:270px; height:540px; background:var(--card);
+    border:2.5px solid var(--ink); border-radius:26px; padding:10px;
+    display:flex; flex-direction:column; overflow:hidden;
+    box-shadow:6px 6px 0 rgba(22,32,46,.12);
+  }
+  .scr{flex:1; display:flex; flex-direction:column; border-radius:16px; overflow:hidden; background:var(--paper); border:1px solid var(--hairline);}
+  .p-top{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:10px 12px; background:var(--card); border-bottom:1px solid var(--hairline);
+  }
+  .zip{font-family:var(--display); font-weight:800; font-size:13px; letter-spacing:.02em;}
+  .lens{
+    font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--ink); color:var(--paper); padding:3px 8px; border-radius:99px;
+  }
+  .timebar{
+    display:flex; gap:4px; padding:7px 10px; background:var(--card); border-bottom:1px solid var(--hairline);
+    font-family:var(--display); font-size:10px; font-weight:700;
+  }
+  .timebar span{padding:3px 8px; border-radius:99px; color:var(--ink-soft);}
+  .timebar .now{background:var(--yeah); color:var(--ink);}
+  .p-body{flex:1; display:flex; flex-direction:column; gap:8px; padding:10px; overflow:hidden;}
+  .p-nav{
+    display:flex; justify-content:space-around; padding:8px 6px; background:var(--card);
+    border-top:1px solid var(--hairline); font-family:var(--mono); font-size:8.5px;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .p-nav b{color:var(--ink);}
+
+  /* map screen */
+  .map{
+    flex:1; position:relative; border-radius:10px; overflow:hidden;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 34px, #E3E4DB 34px 40px),
+      repeating-linear-gradient(90deg, transparent 0 44px, #E3E4DB 44px 50px),
+      #EEEFE7;
+  }
+  .pin{
+    position:absolute; font-family:var(--display); font-weight:700; font-size:9px;
+    background:var(--card); border:1.3px solid var(--ink); border-radius:99px;
+    padding:2px 7px; white-space:nowrap;
+  }
+  .pin::before{content:""; display:inline-block; width:6px; height:6px; border-radius:99px; background:var(--civic); margin-right:4px;}
+  .pin.hot::before{background:var(--yeah); outline:1.5px solid var(--ink);}
+  .pin.me{background:var(--ink); color:var(--paper);}
+  .pin.me::before{background:var(--yeah);}
+  .radius{
+    position:absolute; inset:14% 8% auto; width:70%; aspect-ratio:1;
+    border:1.5px dashed var(--civic); border-radius:50%; opacity:.6;
+  }
+  .ask{
+    font-family:var(--display); font-weight:700; font-size:11px;
+    background:var(--card); border:1.5px solid var(--ink); border-radius:12px;
+    padding:8px 10px; color:var(--ink-soft);
+  }
+
+  /* feed cards */
+  .fcard{
+    background:var(--card); border:1px solid var(--hairline); border-radius:10px;
+    padding:9px 11px; font-size:11px; line-height:1.45;
+  }
+  .fcard b{font-family:var(--display); font-size:11.5px; display:block;}
+  .fmeta{font-family:var(--mono); font-size:8.5px; color:var(--ink-soft); letter-spacing:.04em; display:flex; gap:8px; margin-top:4px;}
+  .fmeta .live{color:#C23B22; font-weight:700;}
+  .fmeta .vt{color:var(--verified);}
+  .fcard.deed{border-left:4px solid var(--verified);}
+  .fcard.biz{border-left:4px solid var(--yeah);}
+  .fcard.civic{border-left:4px solid var(--civic);}
+
+  /* verify screen */
+  .yeah-sheet{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:16px; background:var(--yeah); border-radius:10px;
+  }
+  .yeah-sheet .big{font-family:var(--display); font-weight:800; font-size:30px; line-height:1;}
+  .yeah-sheet .what{font-size:12px; max-width:180px; line-height:1.4;}
+  .attest{
+    font-family:var(--mono); font-size:9px; text-align:left; background:var(--ink); color:#B8F5D9;
+    border-radius:8px; padding:9px 11px; line-height:1.7; width:100%;
+  }
+  .yeah-btn{
+    font-family:var(--display); font-weight:800; font-size:14px; letter-spacing:.06em;
+    background:var(--ink); color:var(--paper); border-radius:99px; padding:10px 26px;
+  }
+
+  /* wallet */
+  .wcard{
+    background:var(--ink); color:var(--paper); border-radius:12px; padding:12px 14px;
+  }
+  .wcard .amt{font-family:var(--display); font-weight:800; font-size:26px;}
+  .wcard .sub{font-family:var(--mono); font-size:9px; color:#9AA6B8; letter-spacing:.08em; text-transform:uppercase;}
+  .perk{
+    display:flex; justify-content:space-between; gap:8px; align-items:center;
+    background:var(--card); border:1px solid var(--hairline); border-radius:10px; padding:9px 11px; font-size:11px;
+  }
+  .perk b{font-family:var(--display); font-size:11.5px; display:block;}
+  .cost{font-family:var(--mono); font-size:10px; background:var(--yeah); padding:2px 7px; border-radius:99px; white-space:nowrap; font-weight:700;}
+
+  /* rollback */
+  .era{
+    background:var(--card); border:1px solid var(--hairline); border-left:4px solid var(--civic);
+    border-radius:10px; padding:9px 11px; font-size:11px; line-height:1.45;
+  }
+  .era b{font-family:var(--display); display:block; font-size:11.5px;}
+  .era .yr{font-family:var(--mono); font-size:9px; color:var(--ink-soft);}
+  .slider{
+    display:flex; flex-direction:column; gap:5px; padding:10px 12px; background:var(--card);
+    border:1px solid var(--hairline); border-radius:10px;
+  }
+  .slider .track{height:5px; background:var(--hairline); border-radius:99px; position:relative;}
+  .slider .knob{
+    position:absolute; top:-5px; left:32%; width:15px; height:15px; border-radius:99px;
+    background:var(--yeah); border:2px solid var(--ink);
+  }
+  .slider .yrs{display:flex; justify-content:space-between; font-family:var(--mono); font-size:8.5px; color:var(--ink-soft);}
+
+  /* ---------- build order ---------- */
+  .steps{display:flex; flex-direction:column; gap:0; margin-top:26px; max-width:820px; counter-reset:step;}
+  .step{
+    display:grid; grid-template-columns:52px 1fr; gap:18px; padding:18px 0;
+    border-top:1px solid var(--hairline); counter-increment:step;
+  }
+  .step::before{
+    content:counter(step); font-family:var(--display); font-weight:800; font-size:26px;
+    color:var(--ink); background:var(--yeah); width:44px; height:44px;
+    display:flex; align-items:center; justify-content:center; border:2px solid var(--ink);
+  }
+  .step h3{margin-bottom:4px;}
+  .step p{font-size:15.5px; margin:0; max-width:640px;}
+
+  footer{
+    margin-top:96px; border-top:3px solid var(--ink); padding-top:20px;
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:baseline;
+  }
+  footer .tag{font-family:var(--display); font-weight:800; font-size:20px;}
+  footer .src{font-family:var(--mono); font-size:12px; color:var(--ink-soft);}
+
+  @media (max-width:640px){
+    .layer{grid-template-columns:1fr;}
+    .layer .tab{border-right:none; border-bottom:1.5px solid var(--ink); flex-direction:row; align-items:baseline; gap:12px;}
+    header.hero{padding-top:44px;}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .hero-copy, .signpost{animation:rise .5s ease-out both;}
+    .signpost{animation-delay:.12s;}
+    @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Yeahborhood · UX concept · Sheet 0 · July 2026</div>
+      <h1>Know what <span class="accent">locals</span> know.</h1>
+      <p class="lede">One app in your hand. It looks like a map of your block, reads like the block's own newspaper-and-ledger, and quietly pays you back for showing up. Everything in the brief folds into that sentence — this sheet does the folding.</p>
+    </div>
+    <div class="signpost" aria-hidden="true">
+      <div class="sign s-yellow">HappenNow! →</div>
+      <div class="sign s-blue">← 10012 NoHo</div>
+      <div class="sign s-blue" style="margin-left:8px">11213 Crown Heights →</div>
+      <div class="sign s-ink">Walking distance only</div>
+      <div class="sign s-paper">Roll it back ↓ 1897</div>
+      <div class="pole" style="height:70px"></div>
+    </div>
+  </header>
+
+  <!-- ============ A. THE MESS, SORTED ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet A</span>
+      <h2>The mess, sorted: it's three layers, not forty ideas</h2>
+    </div>
+    <div class="prose">
+      <p>Every line in the brief — the category trees, the ZKB, the concierge, the Hall of Fame — belongs to exactly one of three layers. The user only ever touches the top one. The other two are why it's defensible.</p>
+    </div>
+
+    <div class="stack">
+      <div class="layer l-exp">
+        <div class="tab">
+          <span class="lnum">LAYER 3 · WHAT YOU TOUCH</span>
+          <span class="lname">The Experience</span>
+        </div>
+        <div class="meat">
+          <p>The app: a map of your walking-distance world, a live feed, an action button, a perks wallet. This is the savant mix — the best trick of each of the six inspirations, upgraded (Sheet C).</p>
+          <span class="absorbs">absorbs from the brief → the whole category tree · marketplace &amp; bulletin board · concierge services · "Ask the Expert" · surveys · Why Not…</span>
+        </div>
+      </div>
+      <div class="layer l-knw">
+        <div class="tab">
+          <span class="lnum">LAYER 2 · WHAT IT KNOWS</span>
+          <span class="lname">The Knowledge</span>
+        </div>
+        <div class="meat">
+          <p>The Ledgers of Truth: every place, person, event and fact of one zipcode, sourced and time-stamped. Knowledge accretes instead of expiring — that's the moat no review site has.</p>
+          <span class="absorbs">absorbs → Intelligence Ledgers DB · chronology layer · Hall of Fame · free university · FACTS · "cultural mapping of civilization"</span>
+        </div>
+      </div>
+      <div class="layer l-pro">
+        <div class="tab">
+          <span class="lnum">LAYER 1 · WHY IT'S TRUE</span>
+          <span class="lname">The Protocol</span>
+        </div>
+        <div class="meat">
+          <p>Verification and settlement: real-world actions become attestations, smart contracts pay out perks automatically. Invisible to users — they just see a green check and a reward that arrives on its own.</p>
+          <span class="absorbs">absorbs → ZKB · smart contracts · IoT attestations · micro-economy · 10K zipcode activation · recycling optimization</span>
+        </div>
+      </div>
+    </div>
+    <p class="stack-note">Rule of thumb for every future idea: if it doesn't slot cleanly into one layer, it's not in the product yet.</p>
+
+    <div class="parked">
+      <h3>Parked, on purpose</h3>
+      <p>Good sparks, wrong sheet. They live in a drawer until a layer earns them:</p>
+      <span class="lot">ChuckGPT · tarot &amp; palm reading · MCN / talent management · digital agency &amp; PR group · elevated franchise model · ___Borhood spin-offs · Building Link integration · pro recording studio</span>
+    </div>
+  </section>
+
+  <!-- ============ B. FOUR DIALS ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet B</span>
+      <h2>The whole UX is four dials</h2>
+    </div>
+    <div class="prose">
+      <p>The giant category tree in the current UI is really one dial among four. Every screen in the app is nothing more than a setting of <em>who you are, where you stand, when you're looking, and what you're after.</em> That's the simplification that makes the interface teachable in ten seconds.</p>
+    </div>
+
+    <div class="dials">
+      <div class="dial">
+        <span class="d-q">Dial 1 — Who's asking?</span>
+        <h3>The Lens</h3>
+        <p>Your verified relationship to the block changes what surfaces and what you can do. A newcomer sees onboarding; a business owner sees footfall.</p>
+        <div class="chips">
+          <span class="chip on">Resident</span><span class="chip">Newcomer</span><span class="chip">Workforce</span><span class="chip">Business owner</span><span class="chip">Student</span><span class="chip">In-transit</span><span class="chip">Volunteer</span>
+        </div>
+      </div>
+      <div class="dial">
+        <span class="d-q">Dial 2 — Where?</span>
+        <h3>The Radius</h3>
+        <p>Walking distance, built around you. Not a city, not a metro area — the block. Scale happens one zipcode at a time, never by zooming out.</p>
+        <div class="chips">
+          <span class="chip on">My block</span><span class="chip">5-min walk</span><span class="chip">15-min walk</span><span class="chip">Whole zipcode</span>
+        </div>
+      </div>
+      <div class="dial">
+        <span class="d-q">Dial 3 — When?</span>
+        <h3>The Timeline</h3>
+        <p>The same map at three moments. Roll It Back is the feature none of the six inspirations have — the block's memory, all the way down.</p>
+        <div class="chips">
+          <span class="chip">⏪ Roll It Back</span><span class="chip on">HappenNow!</span><span class="chip">Tomorrow &amp; Beyond</span>
+        </div>
+      </div>
+      <div class="dial">
+        <span class="d-q">Dial 4 — What for?</span>
+        <h3>The Intent</h3>
+        <p>Verbs, not categories. The taxonomy (groceries, fashion, saunas, tarot…) hides behind plain intents — the tree is for the database, not the user.</p>
+        <div class="chips">
+          <span class="chip on">Eat &amp; drink</span><span class="chip">Discover</span><span class="chip">Buy</span><span class="chip">Learn</span><span class="chip">Get help</span><span class="chip">Do a good deed</span><span class="chip">Get pampered</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="dial-note"><strong>Examples:</strong> <em>Newcomer + 5-min walk + HappenNow + Eat</em> → "three counters locals actually queue at, one has a first-timer perk." <em>Resident + block + Roll It Back + Learn</em> → "your building in 1924, with sources."</p>
+  </section>
+
+  <!-- ============ C. STOLEN WELL ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet C</span>
+      <h2>Stolen well: six apps, one upgrade each</h2>
+    </div>
+    <div class="prose">
+      <p>The savant mix isn't a feature pile — it's one borrowed trick per inspiration, each fixed with the thing they all lack: <span class="v">verification</span>. That column is the pitch.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Borrowed from</th><th>Their best trick</th><th>The Yeahborhood twist</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="src">Google Maps</td>
+            <td>The map <em>is</em> the interface — spatial memory beats menus.</td>
+            <td class="twist">The map is the home screen; every layer (knowledge, deals, events, history) renders on it. No separate "browse" mode.</td>
+          </tr>
+          <tr>
+            <td class="src">Yelp</td>
+            <td>Rich business pages people check before walking in.</td>
+            <td class="twist">Reviews only from <span class="v">verified visits</span>. Proof-of-patronage kills fake reviews; merchants pay for outcomes, not ads.</td>
+          </tr>
+          <tr>
+            <td class="src">Foursquare</td>
+            <td>The check-in habit; being somewhere is worth points.</td>
+            <td class="twist">A check-in becomes an <span class="v">attestation</span> — "the Yeah" — that settles real perks automatically. Mayor badges grow up into value.</td>
+          </tr>
+          <tr>
+            <td class="src">Craigslist</td>
+            <td>Zero-friction classifieds; anyone can post anything.</td>
+            <td class="twist">The bulletin board keeps the friction-free posting, adds <span class="v">verified handoff</span> — escrow releases when the deal provably happened.</td>
+          </tr>
+          <tr>
+            <td class="src">Meetup</td>
+            <td>Structured events with RSVPs and recurring groups.</td>
+            <td class="twist"><span class="v">Verified attendance</span> — organizers, sponsors and the city fund events per human who actually showed up.</td>
+          </tr>
+          <tr>
+            <td class="src">Nextdoor</td>
+            <td>Genuinely hyperlocal reach; neighbors can actually find each other.</td>
+            <td class="twist">Identity-verified lenses plus the fact ledger under every claim. Signal without the paranoia-and-lost-cats noise floor.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ D. A DAY ON THE BLOCK ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet D</span>
+      <h2>A day on the block</h2>
+    </div>
+    <div class="prose">
+      <p>Maya moved to Crown Heights — 11213 — three weeks ago. Lens: <strong>Newcomer</strong>. She never sees the words "protocol," "attestation," or "smart contract" — she sees a map that keeps being right, and a wallet that fills up.</p>
+    </div>
+
+    <div class="day">
+      <div class="beat">
+        <span class="t">08:40</span>
+        <div>
+          <h3>Coffee she didn't have to gamble on</h3>
+          <p>Opens the app: map, her block, HappenNow. "☕ Café Rue Dix, Bergen St — locals' pick, 6-min walk, newcomer perk: first Touba coffee −50%." She goes, taps <strong>Yeah!</strong> at the counter QR.</p>
+          <span class="under">visit attested → merchant pays for a verified new customer, not an ad impression → perk settles to her wallet</span>
+        </div>
+      </div>
+      <div class="beat">
+        <span class="t">12:15</span>
+        <div>
+          <h3>A favor off the bulletin board</h3>
+          <p>Feed shows a neighbor's post from Sterling Pl: "Picking up a package from the bodega, anyone nearby?" She's passing it anyway. Accepts, hands it over at the stoop, both tap to confirm.</p>
+          <span class="under">verified handoff → good-deed credit logged → her newcomer trust score ticks up</span>
+        </div>
+      </div>
+      <div class="beat">
+        <span class="t">18:30</span>
+        <div>
+          <h3>Park cleanup, actually counted</h3>
+          <p>"Tomorrow &amp; Beyond" flagged a Brower Park cleanup this evening — sponsor-funded at $6 per verified volunteer-hour. She shows up; presence at the meet point checks her in and out.</p>
+          <span class="under">attendance attested → sponsor budget releases per real volunteer → the park page's ledger records who showed up, forever</span>
+        </div>
+      </div>
+      <div class="beat">
+        <span class="t">22:10</span>
+        <div>
+          <h3>Rolling her building back</h3>
+          <p>In bed, she drags the time slider on her own address. 1920s: a doctors'-row limestone. 1874: Eastern Parkway opens at the end of her street — the world's first parkway, sources attached, two Hall of Fame neighbors. She sends it to her mom.</p>
+          <span class="under">nothing to settle — the knowledge layer is the retention hook, free forever</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ E. FIVE SCREENS ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet E</span>
+      <h2>Five screens carry the whole product</h2>
+    </div>
+    <div class="prose">
+      <p>Map · Feed · the Yeah · Wallet · Time machine. Four dials on top, five destinations below — nothing else in v1. Scroll →</p>
+    </div>
+
+    <div class="shelf">
+
+      <!-- 1. The Block -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">📍 10012 · NoHo</span><span class="lens">Workforce</span></div>
+          <div class="timebar"><span>⏪ Back</span><span class="now">HappenNow!</span><span>Tomorrow →</span></div>
+          <div class="p-body">
+            <div class="map">
+              <div class="radius"></div>
+              <span class="pin me" style="top:46%;left:36%">you</span>
+              <span class="pin hot" style="top:24%;left:14%">☕ Great Jones −50%</span>
+              <span class="pin" style="top:33%;left:58%">🥯 Bleecker bagels</span>
+              <span class="pin hot" style="top:62%;left:52%">🌳 Eliz. St Garden 6p</span>
+              <span class="pin" style="top:74%;left:18%">🎨 Lafayette opening</span>
+              <span class="pin" style="top:12%;left:60%">🎷 Blue Note @ 9</span>
+            </div>
+            <div class="ask">Ask your block… “where do locals lunch under $15?”</div>
+          </div>
+          <div class="p-nav"><b>Map</b><span>Feed</span><span>Yeah!</span><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>1 · The Block</b> Home screen. The map is the app; the four dials live on top of it. Pins are whatever your lens + intent make relevant, never everything at once.</p>
+      </div>
+
+      <!-- 2. HappenNow feed -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">11213 · Crown Heights</span><span class="lens">Newcomer</span></div>
+          <div class="p-body">
+            <div class="fcard biz"><b>☕ Café Rue Dix — newcomer perk</b>First Touba coffee −50%, today only.<div class="fmeta"><span class="live">● 6 min walk</span><span class="vt">✓ 212 verified visits this week</span></div></div>
+            <div class="fcard deed"><b>🤝 Favor: package pickup, Sterling Pl</b>Rosa (verified resident, 11 deeds) needs a hand before 1pm.<div class="fmeta"><span>2 min walk</span><span class="vt">✓ good-deed credit</span></div></div>
+            <div class="fcard civic"><b>🌳 Brower Park cleanup — tonight 6:30</b>Sponsor-funded · $6/verified hour · gloves provided.<div class="fmeta"><span>18 going</span><span class="vt">✓ attendance verified</span></div></div>
+            <div class="fcard"><b>📊 Block pulse: open streets on Franklin Ave?</b>Real survey — verified residents only, 1 vote each.<div class="fmeta"><span>312 votes so far</span></div></div>
+            <div class="fcard biz"><b>🛋 Bulletin: mid-century armchair, $40</b>Theo, your building · escrow until handoff.<div class="fmeta"><span class="vt">✓ verified neighbor</span></div></div>
+          </div>
+          <div class="p-nav"><span>Map</span><b>Feed</b><span>Yeah!</span><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>2 · The Feed</b> Same data as the map, as a list. Color stripes say what kind of thing it is: commerce, good deed, civic. Every card shows its proof, not its ad budget.</p>
+      </div>
+
+      <!-- 3. The Yeah -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">Café Rue Dix</span><span class="lens">Verifying…</span></div>
+          <div class="p-body">
+            <div class="yeah-sheet">
+              <div class="big">Yeah!</div>
+              <div class="what">You're at <b>Café Rue Dix</b>, Bergen St. Confirm your visit to claim the newcomer perk.</div>
+              <div class="yeah-btn">Hold to confirm</div>
+            </div>
+            <div class="attest">event: visit.confirmed<br>who: maya.11213 (newcomer)<br>where: rue-dix-bergen · qr+gps<br>settle: perk −50% touba ✓<br>ledger: 11213 · block 1263 · #88h2f</div>
+          </div>
+          <div class="p-nav"><span>Map</span><span>Feed</span><b>Yeah!</b><span>Wallet</span><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>3 · The Yeah</b> The signature gesture — the whole protocol compressed into one thumb-press. The receipt below is what actually happened; users can ignore it, auditors can't dispute it.</p>
+      </div>
+
+      <!-- 4. Wallet -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">Your ledger</span><span class="lens">Newcomer → Resident 78%</span></div>
+          <div class="p-body">
+            <div class="wcard"><div class="sub">Yeahborhood 11213 · perks balance</div><div class="amt">48 ¥bh</div><div class="sub">31 verified actions · 3 weeks on the block</div></div>
+            <div class="perk"><span><b>🥐 Franklin Ave bakery — free morning bun</b>you've verified 5 visits</span><span class="cost">12 ¥bh</span></div>
+            <div class="perk"><span><b>🧖 Off-peak float hour</b>Nostrand Ave wellness</span><span class="cost">30 ¥bh</span></div>
+            <div class="perk"><span><b>🌳 Brower Park payout — 1.5 verified hrs</b>settled automatically</span><span class="cost">+9 ¥bh</span></div>
+            <div class="perk"><span><b>🤝 Good deeds — 3 this month</b>counts toward Resident lens</span><span class="cost">trust ↑</span></div>
+          </div>
+          <div class="p-nav"><span>Map</span><span>Feed</span><span>Yeah!</span><b>Wallet</b><span>Time</span></div>
+        </div></div>
+        <p class="caption"><b>4 · The Wallet</b> Perks, payouts and trust in one place. The quiet promotion — Newcomer → Resident — is earned by verified participation, not by time served.</p>
+      </div>
+
+      <!-- 5. Roll It Back -->
+      <div class="slot">
+        <div class="phone"><div class="scr">
+          <div class="p-top"><span class="zip">⏪ 57 Great Jones St</span><span class="lens">Roll It Back</span></div>
+          <div class="p-body">
+            <div class="slider"><div class="track"><div class="knob"></div></div><div class="yrs"><span>1860</span><span>1904</span><span>1988</span><span>now</span></div></div>
+            <div class="era"><b>1988 · Basquiat's studio</b><span class="yr">source: estate archive · photos</span>Rented from his landlord Andy Warhol; he painted here until that August.</div>
+            <div class="era"><b>1904 · New Brighton Athletic Club</b><span class="yr">source: city records · press</span>Paul Kelly's clubhouse — polite name, Five Points Gang address.</div>
+            <div class="era"><b>Hall of Fame · this address</b><span class="yr">2 entries</span>Warhol (landlord, 1970–87) and Basquiat (tenant, 1983–88).</div>
+          </div>
+          <div class="p-nav"><span>Map</span><span>Feed</span><span>Yeah!</span><span>Wallet</span><b>Time</b></div>
+        </div></div>
+        <p class="caption"><b>5 · Roll It Back</b> The time dial applied to any address. Pure knowledge layer — free, sourced, addictive. This is the screen people screenshot and send, i.e. the growth loop.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ F. BUILD ORDER ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sheet">Sheet F</span>
+      <h2>Build order: earn each layer</h2>
+    </div>
+    <div class="prose">
+      <p>The trap in the brief is building Layer 1 first. Nobody needs a trust protocol for a block that has no ledger and no users. Sequence it so every stage delivers value alone:</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div>
+        <h3>Ledger the two pilots: 10012 &amp; 11213</h3>
+        <p>NoHo and Crown Heights — one dense, history-thick Manhattan grid, one residential Brooklyn community. Opposite test conditions on purpose. Seed the Notion ledger from the database collected since 2023 instead of starting from zero; this alone powers Roll It Back and "know what locals know."</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>Open the bulletin board</h3>
+        <p>Marketplace + favors + surveys for the first 10 residents and providers. Craigslist-simple; verification is just "both parties tap confirm." Trust scores start accruing.</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>Ship the Yeah with a QR, not IoT</h3>
+        <p>Three merchants, one perk each, a QR at the counter. Verified-visit perks prove the economic loop — merchant pays per outcome — with zero hardware. IoT and trusted hardware harden it later.</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>Fund one civic action</h3>
+        <p>One cleanup or one class, paid per verified attendee by a BID or sponsor. This is the demo that turns the deck's "transparent community funding" into a receipt you can show a city.</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>Only now, the protocol</h3>
+        <p>When one zipcode has a ledger, a marketplace, paying merchants and a funded civic loop — codify what already works into ZKB and open it to developers. The 10K-to-activate-a-zipcode franchise becomes the scaling story, not the starting point.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="tag">“A Yeahborhood never dies.”</span>
+    <span class="src">sheet 0 · distilled from docs/bio.md + founder brief · pilots: 10012 NoHo &amp; 11213 Crown Heights</span>
+  </footer>
+
+</div>
+</html>
